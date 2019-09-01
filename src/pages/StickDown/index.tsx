@@ -1,16 +1,23 @@
 import React from "react";
 import { ComponentBase } from "../../core/Component";
 import { IStickDownProps } from "./props";
-import { TextBox } from "../../common/TextBox";
+import TextBox from "../../common/TextBox";
+import Maze from "./parts/Maze";
 
 export class StickDown extends ComponentBase<IStickDownProps> {
     render() {
         const { state, dispatch } = this.props
         return <div>
             <div>
-                <TextBox state={state.get("height")} dispatch={dispatch} />
+                高さ：<TextBox state={state.get("height")} dispatch={dispatch} />
             </div>
-            <div></div>
+            <div>
+                幅&emsp;：<TextBox state={state.get("width")} dispatch={dispatch} />
+            </div>
+            <div>
+                <Maze state={state.get("maze")} />
+            </div>
         </div>;
     }
 }
+

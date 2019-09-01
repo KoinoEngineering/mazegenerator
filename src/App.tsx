@@ -1,16 +1,16 @@
 import React from "react";
 import { ComponentBase } from "./core/Component";
-import { IPropBase } from "./core/Props";
+import { StickDown } from "./pages/StickDown";
 import { IState } from "./common/State";
-import { TextBox } from "./common/TextBox";
+import { IPropsWithDispatch } from "./core/Props";
 
 export default class App extends ComponentBase<IAPPProps> {
     render() {
         const { state } = this.props;
-        return <div >
-            <TextBox state={state.get("StickDown").get('height')} dispatch={this.props.dispatch} />
-        </div>;
+        return <>
+            <StickDown state={state.get('StickDown')} dispatch={this.props.dispatch} />
+        </>
     }
 }
 
-interface IAPPProps extends IPropBase<IState> { }
+interface IAPPProps extends IPropsWithDispatch<IState> { }

@@ -1,20 +1,17 @@
 import { ITextBoxState, initialTextBoxState } from "../../common/TextBox/state";
-
-interface IUnit {
-  type: "pillar" | "wall" | "load";
-}
+import { IMazeState, initialMazeState } from "./parts/Maze/state";
 
 export interface IStickDownState {
   height: ITextBoxState;
   width: ITextBoxState;
-  table: IUnit[][];
+  maze: IMazeState;
 }
 
 export const initialStickDown = (state?: Partial<IStickDownState>): IStickDownState => {
   return {
     height: initialTextBoxState(),
     width: initialTextBoxState(),
-    table: [],
+    maze: initialMazeState(),
     ...state
   }
 }
