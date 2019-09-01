@@ -7,7 +7,7 @@ export class TextBox extends ComponentBase<ITextBoxProps> {
     render() {
         const { state, dispatch } = this.props;
         return <div>
-            <input type="text" value={state.get('value')} onChange={(e: ChangeEvent) => dispatch(generateAction("COMMON_TEXTBOX_CHANGE", state.get('path'), { value: e.currentTarget.nodeValue }))} />
+            <input type="text" value={state.get('value')} onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(generateAction("COMMON_TEXTBOX_CHANGE", state.get('path'), { value: e.target.value }))} />
         </div>;
     }
 }
