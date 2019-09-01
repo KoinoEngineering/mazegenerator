@@ -1,19 +1,20 @@
-import { StateGenerator } from "../../core/State";
+import { ITextBoxState, initialTextBoxState } from "../../common/TextBox/state";
 
 interface IUnit {
   type: "pillar" | "wall" | "load";
 }
 
 export interface IStickDownState {
-  height: number;
-  width: number;
+  height: ITextBoxState;
+  width: ITextBoxState;
   table: IUnit[][];
 }
 
-export default class StickDownState extends StateGenerator<IStickDownState>({
-  height: 0,
-  width: 0,
-  table: []
-}) {
-
+export const initialStickDown = (state?: Partial<IStickDownState>): IStickDownState => {
+  return {
+    height: initialTextBoxState(),
+    width: initialTextBoxState(),
+    table: [],
+    ...state
+  }
 }

@@ -1,3 +1,3 @@
-import { fromJS } from "./Immutable";
+import { fromJS, WithPath } from "./Immutable";
 
-export type IStateBase<T> = fromJS<T>;
+export type IStateBase<T> = fromJS<WithPath<T>>;
