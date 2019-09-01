@@ -10,7 +10,7 @@ export type fromJS<T> = T extends Primitive
   }[U extends Primitive ? 0 : 1]
   : Immutable.Record<{
     [K in keyof T]: fromJS<T[K]>
-  }>
+  }>;
 
 export const fromJS = <T>(
   jsValue: T,
@@ -23,10 +23,10 @@ export const fromJS = <T>(
   return Immutable.fromJS(createPath(jsValue), reviver);
 }
 type Path<T> = {
-  [K in keyof T]: K extends "path" ? string[] : T[K]
-};
+  [K in keyof T]: K extends "path" ? (string | number)[] : T[K]
+} & { path: (string | number)[] };
 
-type WithPath<T> = T extends Primitive
+export type WithPath<T> = T extends Primitive
   ? T
   : T extends Array<infer U>
   ? {
@@ -37,11 +37,11 @@ type WithPath<T> = T extends Primitive
     [K in keyof T]: WithPath<T[K]>
   }>;
 
-export const createPath = (state: any, path: string[] = []): any => {
+export const createPath = (state: any, path: (string | number)[] = []): any => {
   if (state === undefined) {
     return state;
   } else if (Array.isArray(state)) {
-    return state.map((elm, i) => createPath(elm, [...path, i.toString()]))
+    return state.map((elm, i) => createPath(elm, [...path, i]))
   } else if (typeof state == "object") {
     return Object.keys(state).reduce((ret, key) => {
       if (key !== "path") {
