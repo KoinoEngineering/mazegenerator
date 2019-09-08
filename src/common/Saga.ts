@@ -15,7 +15,6 @@ export default function* rootSaga() {
 }
 
 function* takeEverySaga(action: IAction) {
-  const state: IImState = yield select();
   switch (action.type) {
     case "PUT_COMMON_NUMBERBOX_CHANGE":
       yield fork(PUT_COMMON_NUMBERBOX_CHANGE, action);
