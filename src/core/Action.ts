@@ -1,6 +1,7 @@
 import Immutable from "./Immutable";
 import { Action as A } from "redux";
 import { COMMON_ACTIONS } from "../common/Reducer";
+import { SAGA_TAKEEVERY_ACTIONS } from "../common/Saga";
 
 export interface IAction extends A<AllActions> {
   payload: Payload
@@ -28,4 +29,4 @@ export class Payload implements IPayload {
   option?: any
 }
 
-type AllActions = COMMON_ACTIONS
+type AllActions = COMMON_ACTIONS | SAGA_TAKEEVERY_ACTIONS

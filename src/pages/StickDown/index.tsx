@@ -7,7 +7,7 @@ import Maze from "./parts/Maze";
 export class StickDown extends ComponentBase<IStickDownProps> {
     render() {
         const { state, dispatch } = this.props
-        return <div>
+        return <div >
             <div>
                 高さ：<TextBox state={state.get("height")} dispatch={dispatch} />
             </div>
@@ -15,9 +15,9 @@ export class StickDown extends ComponentBase<IStickDownProps> {
                 幅&emsp;：<TextBox state={state.get("width")} dispatch={dispatch} />
             </div>
             <div>
-                <Maze state={state.get("maze")} />
+                <Maze state={state.get("maze")} dispatch={dispatch} />
             </div>
-        </div>;
+        </div >;
     }
 }
 

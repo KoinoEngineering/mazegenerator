@@ -8,10 +8,15 @@ import * as serviceWorker from './serviceWorker';
 import { IImState } from './common/State';
 import { IAction } from './core/Action';
 import { createLogger } from "redux-logger";
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './common/Saga';
 
-const store = createStore<IImState, IAction, {}, {}>(reducer, applyMiddleware(createLogger({
+const sagaMiddleware = createSagaMiddleware()
+
+const store = createStore<IImState, IAction, {}, {}>(reducer, applyMiddleware(sagaMiddleware, createLogger({
     stateTransformer: (state: IImState) => state.toJS(),
 })));
+sagaMiddleware.run(rootSaga)
 
 const rootRender = () => ReactDOM.render(<App state={store.getState()} dispatch={store.dispatch} />, document.getElementById('root'));
 rootRender();

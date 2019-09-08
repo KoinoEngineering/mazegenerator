@@ -8,13 +8,12 @@ import { withStyles } from "@material-ui/styles";
 const style = createStyles({
     root: {
         display: "inline-block",
-        border: "black solid 1px",
         boxSizing: "border-box",
         width: 10,
         height: 10
     },
-    piller: {
-        backgroundColor: "#888888"
+    pillar: {
+        backgroundColor: "#000000"
     },
     wall: {
         backgroundColor: "#000000"

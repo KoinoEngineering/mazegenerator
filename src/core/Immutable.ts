@@ -14,13 +14,9 @@ export type fromJS<T> = T extends Primitive
 
 export const fromJS = <T>(
   jsValue: T,
-  reviver?: (
-    key: string | number,
-    sequence: Immutable.Collection.Keyed<string, any> | Immutable.Collection.Indexed<any>,
-    path?: Array<string | number>
-  ) => any
+  path: string[] = []
 ): fromJS<WithPath<T>> => {
-  return Immutable.fromJS(createPath(jsValue), reviver);
+  return Immutable.fromJS(createPath(jsValue, path));
 }
 type Path<T> = {
   [K in keyof T]: K extends "path" ? (string | number)[] : T[K]
