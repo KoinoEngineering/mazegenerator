@@ -1,16 +1,16 @@
-import { ITextBoxState, initialTextBoxState } from "../../common/TextBox/state";
+import { INumberBoxState, initialNumberBoxState } from "../../common/NumberBox/state";
 import { IMazeState, initialMazeState } from "./parts/Maze/state";
 
 export interface IStickDownState {
-  height: ITextBoxState;
-  width: ITextBoxState;
+  height: INumberBoxState;
+  width: INumberBoxState;
   maze: IMazeState;
 }
 
 export const initialStickDown = (state?: Partial<IStickDownState>): IStickDownState => {
   return {
-    height: initialTextBoxState(),
-    width: initialTextBoxState(),
+    height: initialNumberBoxState(),
+    width: initialNumberBoxState(),
     maze: initialMazeState(),
     ...state
   }
