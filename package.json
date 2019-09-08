@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
-    "@types/redux-logger": "^3.0.7"
+    "@types/redux-logger": "^3.0.7",
+    "gh-pages": "^2.1.1"
   }
 }
