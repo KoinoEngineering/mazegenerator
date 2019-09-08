@@ -14,7 +14,7 @@ class NumberBox extends ComponentBase<INumberBoxProps> {
     render() {
         const { state, dispatch, classes } = this.props;
         return <div className={classes.root}>
-            <input type="text" value={state.get('value')} onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(generateAction("COMMON_NUMBERBOX_CHANGE", state.get('path'), { value: e.target.value }))} />
+            <input type="text" value={state.get('value')} onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(generateAction("PUT_COMMON_NUMBERBOX_CHANGE", state.get('path'), { value: e.target.value }))} />
         </div>;
     }
 }
