@@ -1,9 +1,9 @@
 import Immutable from "./Immutable";
-import { Action as A } from "redux";
+import { Action } from "redux";
 import { COMMON_ACTIONS } from "../common/Reducer";
 import { SAGA_TAKEEVERY_ACTIONS } from "../common/Saga";
 
-export interface IAction extends A<AllActions> {
+export interface IAction<A extends AllActions = AllActions> extends Action<A> {
   payload: Payload
   meta: any;
 }

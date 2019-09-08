@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentBase } from "../../core/Component";
 import { IStickDownProps } from "./props";
-import TextBox from "../../common/TextBox";
+import NumberBox from "../../common/NumberBox";
 import Maze from "./parts/Maze";
 
 export class StickDown extends ComponentBase<IStickDownProps> {
@@ -9,10 +9,10 @@ export class StickDown extends ComponentBase<IStickDownProps> {
         const { state, dispatch } = this.props
         return <div >
             <div>
-                高さ：<TextBox state={state.get("height")} dispatch={dispatch} />
+                高さ：<NumberBox state={state.get("height")} dispatch={dispatch} />
             </div>
             <div>
-                幅&emsp;：<TextBox state={state.get("width")} dispatch={dispatch} />
+                幅&emsp;：<NumberBox state={state.get("width")} dispatch={dispatch} />
             </div>
             <div>
                 <Maze state={state.get("maze")} dispatch={dispatch} />

@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import { IImState, initialState } from "./State";
 import { fromJS } from "../core/Immutable";
 import { IAction } from "../core/Action";
-import { IImTextBoxState } from "./TextBox/state";
+import { changeNumberBox } from "./NumberBox/state";
 import { IImRoomState } from "../pages/StickDown/parts/Room/state";
 import { initialMazeState } from "../pages/StickDown/parts/Maze/state";
 
@@ -19,13 +19,11 @@ const reducer: Reducer<IImState, IAction> = (state: IImState = fromJS(initialSta
 
 export default reducer;
 
-export type COMMON_ACTIONS = "COMMON_TEXTBOX_CHANGE" | "STICK_DOWN_CREATE_MAZE" | "STICK_DOWN_INIT_MAZE";
+export type COMMON_ACTIONS = "COMMON_NUMBERBOX_CHANGE" | "STICK_DOWN_CREATE_MAZE" | "STICK_DOWN_INIT_MAZE";
 
 const actions: ActionMap = {
-  COMMON_TEXTBOX_CHANGE: (state: IImState, action: IAction) => {
-    return state.updateIn(action.payload.path, (textBox: IImTextBoxState) => {
-      return textBox.set("value", action.payload.option.value);
-    });
+  COMMON_NUMBERBOX_CHANGE: (state: IImState, action: IAction) => {
+    return state.updateIn(action.payload.path, changeNumberBox(action.payload.option.value));
   },
   STICK_DOWN_CREATE_MAZE: (state: IImState, action: IAction) => {
     const directionMap = {
@@ -50,13 +48,30 @@ const actions: ActionMap = {
     ], "wall")
   },
   STICK_DOWN_INIT_MAZE: (state: IImState, action: IAction) => {
+
+    // 最低値は5
+    if (Number(state.get("StickDown").get("height").get("value")) < 5) {
+      state = state.setIn(["StickDown", "height", "value"], 5)
+    }
+    if (Number(state.get("StickDown").get("width").get("value")) < 5) {
+      state = state.setIn(["StickDown", "width", "value"], 5)
+    }
+
+    // 奇数に正規化する
+    if (Number(state.get("StickDown").get("height").get("value")) % 2 === 0) {
+      state = state.updateIn(["StickDown", "height", "value"], (value: string): string => (Number(value) + 1).toString())
+    }
+    if (Number(state.get("StickDown").get("width").get("value")) % 2 === 0) {
+      state = state.updateIn(["StickDown", "width", "value"], (value: string): string => (Number(value) + 1).toString())
+    }
+
     return state.setIn(
       [
         "StickDown",
         "maze"
       ],
       fromJS(
-        initialMazeState(),
+        initialMazeState(Number(state.get("StickDown").get("height").get("value")), Number(state.get("StickDown").get("width").get("value"))),
         state.get("StickDown").get("maze").get("path").toJS()
       )
     );
