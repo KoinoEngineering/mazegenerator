@@ -36,8 +36,8 @@ const actions: ActionMap = {
     let direction: 0 | 1 | 2 | 3 = 0;
     do {
       direction = (Math.round(Math.random() * 100) % 4 as 0 | 1 | 2 | 3);
-      // 高さが2かつ上の時または既に壁になっているとき
-    } while ((action.payload.option.h === 2 && direction === 0) || !isLoad(state, action.payload.option.h, action.payload.option.w, directionMap[direction]))
+      // 高さが2以外かつ上の時または既に壁になっているとき
+    } while ((action.payload.option.h !== 2 && direction === 0) || !isLoad(state, action.payload.option.h, action.payload.option.w, directionMap[direction]))
     return state.setIn([
       "StickDown",
       "maze",
