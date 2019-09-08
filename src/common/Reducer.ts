@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import { IImState, initialState } from "./State";
 import { fromJS } from "../core/Immutable";
 import { IAction } from "../core/Action";
-import { IImNumberBoxState } from "./NumberBox/state";
+import { changeNumberBox } from "./NumberBox/state";
 import { IImRoomState } from "../pages/StickDown/parts/Room/state";
 import { initialMazeState } from "../pages/StickDown/parts/Maze/state";
 
@@ -23,9 +23,7 @@ export type COMMON_ACTIONS = "COMMON_NUMBERBOX_CHANGE" | "STICK_DOWN_CREATE_MAZE
 
 const actions: ActionMap = {
   COMMON_NUMBERBOX_CHANGE: (state: IImState, action: IAction) => {
-    return state.updateIn(action.payload.path, (textBox: IImNumberBoxState) => {
-      return textBox.set("value", action.payload.option.value);
-    });
+    return state.updateIn(action.payload.path, changeNumberBox(action.payload.option.value));
   },
   STICK_DOWN_CREATE_MAZE: (state: IImState, action: IAction) => {
     const directionMap = {
