@@ -1,4 +1,4 @@
-import { put, select, takeEvery, fork, PutEffect } from "redux-saga/effects";
+import { fork, put, select, takeEvery } from "redux-saga/effects";
 import { IAction } from "../core/Action";
 import Immutable from "../core/Immutable";
 import { IImMaseState } from "../pages/StickDown/parts/Maze/state";
@@ -19,8 +19,7 @@ function* takeEverySaga(action: IAction) {
   const state: IImState = yield select();
   switch (action.type) {
     case "PUT_COMMON_NUMBERBOX_CHANGE":
-      const ret: Promise<PutEffect<IAction>> = yield fork(PUT_COMMON_NUMBERBOX_CHANGE, action);
-      console.log(ret);
+      yield fork(PUT_COMMON_NUMBERBOX_CHANGE, action);
       break;
     case "STICK_DOWN_GNENRATE_START":
       yield fork(STICK_DOWN_GNENRATE_START, state.get("StickDown").get("maze"))
@@ -40,6 +39,9 @@ function* PUT_COMMON_NUMBERBOX_CHANGE(action: IAction) {
   });
 }
 
+function* PUT_STICK_DOWN_GNENRATE(action: IAction<"STICK_DOWN_GNENRATE">) {
+  yield put(action);
+}
 
 function* STICK_DOWN_GNENRATE_START(maze: IImMaseState) {
   yield put<IAction>({
@@ -78,7 +80,8 @@ function* STICK_DOWN_GNENRATE(pillerList: Immutable.List<IImRoomState>) {
       },
       meta: {}
     });
-    yield put<IAction>({
+    yield delay(1000).then((ms) => { console.log("delay " + ms + "ms") })
+    yield fork(PUT_STICK_DOWN_GNENRATE, {
       type: "STICK_DOWN_GNENRATE",
       payload: {
         path: target.get("path")
@@ -88,4 +91,12 @@ function* STICK_DOWN_GNENRATE(pillerList: Immutable.List<IImRoomState>) {
       }
     });
   }
+}
+
+const delay = (ms: number) => {
+  return new Promise<number>((res, rej) => {
+    setTimeout(() => {
+      res(ms);
+    }, ms);
+  })
 }
