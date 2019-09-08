@@ -48,13 +48,30 @@ const actions: ActionMap = {
     ], "wall")
   },
   STICK_DOWN_INIT_MAZE: (state: IImState, action: IAction) => {
+
+    // 最低値は5
+    if (Number(state.get("StickDown").get("height").get("value")) < 5) {
+      state = state.setIn(["StickDown", "height", "value"], 5)
+    }
+    if (Number(state.get("StickDown").get("width").get("value")) < 5) {
+      state = state.setIn(["StickDown", "width", "value"], 5)
+    }
+
+    // 奇数に正規化する
+    if (Number(state.get("StickDown").get("height").get("value")) % 2 === 0) {
+      state = state.updateIn(["StickDown", "height", "value"], (value: string): string => (Number(value) + 1).toString())
+    }
+    if (Number(state.get("StickDown").get("width").get("value")) % 2 === 0) {
+      state = state.updateIn(["StickDown", "width", "value"], (value: string): string => (Number(value) + 1).toString())
+    }
+
     return state.setIn(
       [
         "StickDown",
         "maze"
       ],
       fromJS(
-        initialMazeState(),
+        initialMazeState(Number(state.get("StickDown").get("height").get("value")), Number(state.get("StickDown").get("width").get("value"))),
         state.get("StickDown").get("maze").get("path").toJS()
       )
     );

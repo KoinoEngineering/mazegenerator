@@ -9,8 +9,8 @@ export interface IStickDownState {
 
 export const initialStickDown = (state?: Partial<IStickDownState>): IStickDownState => {
   return {
-    height: initialNumberBoxState(),
-    width: initialNumberBoxState(),
+    height: initialNumberBoxState({ value: "11" }),
+    width: initialNumberBoxState({ value: "11" }),
     maze: initialMazeState(),
     ...state
   }

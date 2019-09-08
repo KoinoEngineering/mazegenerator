@@ -7,7 +7,7 @@ export interface IMazeState {
 
 export interface IImMaseState extends IStateBase<IMazeState> { }
 
-export const initialMazeState = (state?: IMazeState, h: number = 11, w: number = 11): IMazeState => {
+export const initialMazeState = (h: number = 11, w: number = 11): IMazeState => {
   let field: IRoomState[][] = Array<Array<IRoomState>>(h).fill([...Array(w).fill(initialRoomState())])
   field = field.map((row, h): IRoomState[] => {
     return row.map((room, w): IRoomState => {
