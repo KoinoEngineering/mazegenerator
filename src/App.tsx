@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { IState } from "./common/State";
 import Static from "./common/Static";
 import { ComponentBase } from "./core/Component";
@@ -18,9 +18,8 @@ export default class App extends ComponentBase<IAPPProps> {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <Route path="/StickDown">
-                        <StickDown state={state.get('StickDown')} dispatch={this.props.dispatch} />
-                    </Route>
+                    <Route path="/StickDown" render={() => <StickDown state={state.get('StickDown')} dispatch={this.props.dispatch} />} />
+                    <Route render={() => <Redirect to={'/'} />} />
                 </Switch>
             </div>
         </Router>
