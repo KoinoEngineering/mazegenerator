@@ -1,4 +1,4 @@
-import { fork, put, select, takeEvery } from "redux-saga/effects";
+import { fork, put, select, takeEvery, delay } from "redux-saga/effects";
 import { IAction } from "../core/Action";
 import Immutable from "../core/Immutable";
 import { IImRoomState } from "../pages/StickDown/parts/Room/state";
@@ -79,7 +79,7 @@ function* STICK_DOWN_GNENRATE(pillerList: Immutable.List<IImRoomState>) {
       },
       meta: {}
     });
-    yield delay(0).then((ms) => { console.log("delay " + ms + "ms") })
+    yield delay(0);
     yield fork(PUT_STICK_DOWN_GNENRATE, {
       type: "STICK_DOWN_GNENRATE",
       payload: {
@@ -90,12 +90,4 @@ function* STICK_DOWN_GNENRATE(pillerList: Immutable.List<IImRoomState>) {
       }
     });
   }
-}
-
-const delay = (ms: number) => {
-  return new Promise<number>((res, rej) => {
-    setTimeout(() => {
-      res(ms);
-    }, ms);
-  })
 }
