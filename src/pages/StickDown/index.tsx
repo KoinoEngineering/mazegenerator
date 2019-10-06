@@ -3,16 +3,23 @@ import { ComponentBase } from "../../core/Component";
 import { IStickDownProps } from "./props";
 import NumberBox from "../../common/NumberBox";
 import Maze from "./parts/Maze";
+import { createStyles, withStyles } from "@material-ui/core";
 
-export class StickDown extends ComponentBase<IStickDownProps> {
+const style = createStyles({
+    root: {
+        padding: 10
+    },
+})
+
+class StickDown extends ComponentBase<IStickDownProps> {
     render() {
-        const { state, dispatch } = this.props
-        return <div >
+        const { state, classes, dispatch } = this.props
+        return <div className={classes.root}>
             <div>
-                高さ：<NumberBox state={state.get("height")} dispatch={dispatch} />
+                <NumberBox state={state.get("height")} dispatch={dispatch} />
             </div>
             <div>
-                幅&emsp;：<NumberBox state={state.get("width")} dispatch={dispatch} />
+                <NumberBox state={state.get("width")} dispatch={dispatch} />
             </div>
             <div>
                 <Maze state={state.get("maze")} dispatch={dispatch} />
@@ -21,3 +28,4 @@ export class StickDown extends ComponentBase<IStickDownProps> {
     }
 }
 
+export default withStyles(style)(StickDown);

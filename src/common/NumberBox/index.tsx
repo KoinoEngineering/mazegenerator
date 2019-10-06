@@ -2,11 +2,15 @@ import React, { ChangeEvent } from "react";
 import { ComponentBase } from "../../core/Component";
 import { INumberBoxProps } from "./props";
 import { generateAction } from "../../core/Action";
-import { createStyles, withStyles, Slider } from "@material-ui/core";
+import { createStyles, withStyles, Slider, TextField } from "@material-ui/core";
 
 const style = createStyles({
     root: {
         display: "inline-block"
+    },
+    textFieldRoot: {
+        paddingTop: 0,
+        paddingBottom: 0
     }
 })
 
@@ -14,7 +18,13 @@ class NumberBox extends ComponentBase<INumberBoxProps> {
     render() {
         const { state, dispatch, classes } = this.props;
         return <div className={classes.root}>
-            <input type="text" value={state.get('value')} onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(generateAction("PUT_COMMON_NUMBERBOX_CHANGE", state.get('path'), { value: e.target.value }))} />
+            <TextField
+                {...state.get('textField').toJS()}
+                margin="normal"
+                variant="outlined"
+                InputProps={{ classes: { root: classes.textFieldRoot } }}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(generateAction("PUT_COMMON_NUMBERBOX_CHANGE", state.get('path'), { value: e.target.value }))}
+            />
             <Slider
                 step={1}
                 marks
