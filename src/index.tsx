@@ -14,6 +14,7 @@ import rootSaga from './common/Saga';
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore<IImState, IAction, {}, {}>(reducer, applyMiddleware(sagaMiddleware, createLogger({
+    logger: process.env.NODE_ENV === "production" ? undefined : console,
     stateTransformer: (state: IImState) => state.toJS(),
 })));
 sagaMiddleware.run(rootSaga)
